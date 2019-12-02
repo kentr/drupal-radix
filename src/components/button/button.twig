@@ -10,6 +10,7 @@
  * - tag: button, a, input
  * - value: string
  * - utility_classes: An array of utility classes.
+ * - url: URL for link buttons.
  */
 #}
 {% set attributes = attributes ?? create_attribute() %}
@@ -23,10 +24,14 @@
   size ? 'btn-' ~ size,
 ]|merge(utility_classes) %}
 
+{% if url %}
+  {% set url = url|render %}
+{% endif %}
+
 {% if tag == 'input' %}
   <input{{ attributes.addClass(css_classes) }} />
 {% elseif tag == 'a' %}
-  <a href="{{ href }}"{{ attributes.addClass(css_classes) }}>{{ text }}</a>
+  <a href="{{ url }}"{{ attributes.addClass(css_classes) }}>{{ text }}</a>
 {% else %}
   <{{ tag }}{{ attributes.addClass(css_classes) }}>{{ text }}</{{ tag }}>
 {% endif %}
