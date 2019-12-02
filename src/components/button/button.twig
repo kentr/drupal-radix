@@ -12,7 +12,7 @@
  * - utility_classes: An array of utility classes.
  */
 #}
-{% set attributes = create_attribute() %}
+{% set attributes = attributes ?? create_attribute() %}
 {% set tag = tag|default('button') %}
 {% set outline = outline|default(false) %}
 {% set type = type|default('type') %}
@@ -32,5 +32,3 @@
 {% else %}
   <{{ tag }}{{ attributes.addClass(css_classes) }}>{{ text }}</{{ tag }}>
 {% endif %}
-
-
