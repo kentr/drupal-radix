@@ -4,9 +4,11 @@
  * Template for a button component.
  *
  * Available config:
- * - type: primary | secondary | success | danger | warning | info | light | dark
+ * - type: primary | secondary | success | danger | warning | info |
+ *     light | dark | link.
  * - size: sm | lg
- * - outline: true | false
+ * - outline: true | false.  If type is "link", then outline will be
+ *     ignored and button class will be "btn-link".
  * - html_tag: button | a | input
  * - value: string
  * - utility_classes: An array of utility classes.
@@ -19,7 +21,7 @@
 
 {% set css_classes = [
   'btn',
-  (outline ? 'btn-outline-' : 'btn-') ~ type,
+  (outline and type != 'link' ? 'btn-outline-' : 'btn-') ~ type,
   size ? 'btn-' ~ size,
 ]|merge(utility_classes ? utility_classes : []) %}
 
