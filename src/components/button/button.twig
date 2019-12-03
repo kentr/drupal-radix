@@ -11,11 +11,13 @@
  *     ignored and button class will be "btn-link".
  * - html_tag: button | a | input. The HTML tag to use for the button.
  *     Defaults to "button".
- * - content: The content of the button. For `input` buttons, defaults to
- *     `attributes.value`.  For other buttons, can be any markup
- *      that is permitted by the HTML specification.
+ * - content: The content of the button. For `input` buttons, this is
+ *     ignored and `attributes.value` is used.
+ *     For other buttons, can be any markup that is permitted by the HTML
+ *     specification.  If empty, will use any value that is in
+ *     `attributes.value`.
  * - utility_classes: An array of utility classes.
- * - url: URL for link buttons.
+ * - url: The URL for link buttons.
  * - disabled: true | false.  Make button disabled.
  *     If true, will automatically set the `disabled` attribute on
  *     non-link buttons.
