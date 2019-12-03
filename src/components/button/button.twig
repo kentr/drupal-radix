@@ -23,7 +23,7 @@
 #}
 {% set attributes = attributes ?? create_attribute() %}
 {% set html_tag = html_tag ?? 'button' %}
-{% set content = content ?? value %}
+{% set content = content ?? attributes.value %}
 
 {% set css_classes = [
   'btn',
