@@ -11,7 +11,9 @@
  *     ignored and button class will be "btn-link".
  * - html_tag: button | a | input. The HTML tag to use for the button.
  *     Defaults to "button".
- * - value: string
+ * - content: The content of the button. For `input` buttons, defaults to
+ *     `attributes.value`.  For other buttons, can be any markup
+ *      that is permitted by the HTML specification.
  * - utility_classes: An array of utility classes.
  * - url: URL for link buttons.
  * - disabled: true | false.  Make button disabled.
@@ -21,7 +23,7 @@
 #}
 {% set attributes = attributes ?? create_attribute() %}
 {% set html_tag = html_tag ?? 'button' %}
-{% set text = text ?? value %}
+{% set content = content ?? value %}
 
 {% set css_classes = [
   'btn',
@@ -60,7 +62,7 @@
 {% if html_tag == 'input' %}
   <input{{ attributes.addClass(css_classes) }} />
 {% elseif html_tag == 'a' %}
-  <a href="{{ url }}"{{ attributes.addClass(css_classes)|without('disabled') }}>{{ text }}</a>
+  <a href="{{ url }}"{{ attributes.addClass(css_classes)|without('disabled') }}>{{ content }}</a>
 {% else %}
-  <{{ html_tag }}{{ attributes.addClass(css_classes) }}>{{ text }}</{{ html_tag }}>
+  <{{ html_tag }}{{ attributes.addClass(css_classes) }}>{{ content }}</{{ html_tag }}>
 {% endif %}
