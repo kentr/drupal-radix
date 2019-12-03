@@ -15,14 +15,13 @@
 #}
 {% set attributes = attributes ?? create_attribute() %}
 {% set html_tag = html_tag ?? 'button' %}
-{% set utility_classes = utility_classes|default([]) %}
 {% set text = text ?? value %}
 
 {% set css_classes = [
   'btn',
   (outline ? 'btn-outline-' : 'btn-') ~ type,
   size ? 'btn-' ~ size,
-]|merge(utility_classes) %}
+]|merge(utility_classes ? utility_classes : []) %}
 
 {% if url %}
   {% set url = url|render %}
