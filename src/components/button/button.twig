@@ -13,6 +13,9 @@
  * - value: string
  * - utility_classes: An array of utility classes.
  * - url: URL for link buttons.
+ * - disabled: true | false.  Make button disabled.
+ *     If true, will automatically set the `disabled` attribute on
+ *     non-link buttons.
  */
 #}
 {% set attributes = attributes ?? create_attribute() %}
@@ -25,6 +28,30 @@
   size ? 'btn-' ~ size,
 ]|merge(utility_classes ? utility_classes : []) %}
 
+{#
+  Setup for disabled buttons.
+  The `disabled` parameter overrides `attributes.disabled`.
+  It's a little redundant to reset `attributes.disabled` below, but this
+  simplifies the logic.
+
+  @see https://getbootstrap.com/docs/4.4/components/buttons/#disabled-state
+#}
+{% if disabled or attributes.disabled %}
+
+  {% set attributes = attributes.setAttribute('aria-disabled', 'true') %}
+
+  {% if html_tag == 'a' %}
+    {#
+      These could probably apply to all elements, but the docs only
+      specify them for `a`.
+    #}
+    {% set css_classes = css_classes|merge(['disabled']) %}
+    {% set attributes = attributes.setAttribute('tabindex', '-1') %}
+  {% else %}
+    {% set attributes = attributes.setAttribute('disabled', true) %}
+  {% endif %}
+{% endif %}
+
 {% if url %}
   {% set url = url|render %}
 {% endif %}
@@ -32,7 +59,7 @@
 {% if html_tag == 'input' %}
   <input{{ attributes.addClass(css_classes) }} />
 {% elseif html_tag == 'a' %}
-  <a href="{{ url }}"{{ attributes.addClass(css_classes) }}>{{ text }}</a>
+  <a href="{{ url }}"{{ attributes.addClass(css_classes)|without('disabled') }}>{{ text }}</a>
 {% else %}
   <{{ html_tag }}{{ attributes.addClass(css_classes) }}>{{ text }}</{{ html_tag }}>
 {% endif %}
