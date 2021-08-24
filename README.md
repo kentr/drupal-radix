@@ -1,3 +1,5 @@
+This project is now archived.
+
 # Radix
 [![Documentation Status](https://readthedocs.org/projects/radix/badge/?version=latest)](http://docs.radixtheme.org/en/latest/?badge=latest)
 
